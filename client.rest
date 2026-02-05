@@ -2,7 +2,7 @@
 
 
 # Recados
-### Lista tds os recados, query parameters
+### Lista todos os recados, query parameters
 GET  {{baseUrl}}/recados/
 # ?limit=10
 # &offset=10
