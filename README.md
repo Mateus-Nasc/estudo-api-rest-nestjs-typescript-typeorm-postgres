@@ -1,4 +1,4 @@
-# Estudo: API REST com NestJS, TypeORM e PostgreSQL
+## Estudo: API REST com NestJS, TypeORM e PostgreSQL
 
 Este projeto foi desenvolvido como parte dos meus estudos sobre o ecossistema
 NestJS, focando na construção de uma API robusta, integração com banco de dados
@@ -32,7 +32,9 @@ Para rodar este projeto localmente, configure as variaveis de ambiente.
 3. Agora para o nest gerenciar as variaveis de ambiente do seu .env execute o
    comando:
 
-`npm i @nestjs/config`
+```bash
+$ npm i @nestjs/config
+```
 
 ## Executando o Projeto
 
