@@ -1,0 +1,57 @@
+@baseUrl = http://localhost:3000
+
+
+# Recados
+### Lista tds os recados, query parameters
+GET  {{baseUrl}}/recados/
+# ?limit=10
+# &offset=10
+# &user=mateus
+### apenas um recado
+GET  {{baseUrl}}/recados/2/
+### criar novo recado e me permite enviar coisas
+POST  {{baseUrl}}/recados/
+Content-Type: application/json
+
+ {
+    "texto": "Novo Recado",
+    "de": "Joana",
+    "para": "João"
+
+}
+
+### atualizar apenas um recurso com Path
+PATCH   {{baseUrl}}/recados/5/
+Content-Type: application/json
+
+{
+    "texto": "Recado atualizado 2",
+    "de": "Joana",
+    "para": "João"
+
+}
+
+### apaga um recado
+DELETE  {{baseUrl}}/recados/2/
+
+
+### AppControllerGetHello
+
+# @name AppControllerGetHello
+GET  {{baseUrl}}/
+
+### ExemploDeRota
+
+# @name ExemploDeRota
+GET  {{baseUrl}}/exemplo
+
+### ConceitosManualController Home
+
+# @name ConceitosManualControllerHome
+GET  {{baseUrl}}/conceitos-manual
+
+### ConceitosAutomaticoController Home
+
+# @name ConceitosAutomaticoController
+GET  {{baseUrl}}/conceitos-automatico
+
