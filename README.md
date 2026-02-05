@@ -33,7 +33,7 @@ Para rodar este projeto localmente, configure as variaveis de ambiente.
    comando:
 
 ```bash
-$ npm i @nestjs/config
+ npm i @nestjs/config
 ```
 
 ## Executando o Projeto
