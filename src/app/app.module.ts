@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { RecadosModule } from 'src/recados/recados.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { PessoasModule } from 'src/pessoas/pessoas.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true, //sincroniza com o BD. Não deve ser usado em produção
     }),
     RecadosModule,
+    PessoasModule,
   ],
   controllers: [AppController],
   providers: [AppService],
