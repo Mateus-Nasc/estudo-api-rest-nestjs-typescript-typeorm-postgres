@@ -7,16 +7,10 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  Query,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
-
-interface PaginationQuery {
-  limit?: string;
-  offset?: string;
-}
 
 @Controller('recados')
 export class RecadosController {
@@ -24,7 +18,7 @@ export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
   //encontra todos os recados
   @Get()
-  findAll(@Query() pagination: PaginationQuery) {
+  findAll() {
     return this.recadosService.findAll();
   }
 
