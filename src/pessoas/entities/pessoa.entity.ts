@@ -18,7 +18,7 @@ export class Pessoa {
   @Column({ length: 155 })
   passwordHash: string;
 
-  @Column()
+  @Column({ unique: true })
   @IsEmail()
   email: string;
 

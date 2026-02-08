@@ -35,6 +35,43 @@ Content-Type: application/json
 DELETE  {{baseUrl}}/recados/2/
 
 
+
+
+
+### Pessoas
+
+# Pessoas
+### Lista todas as pessoas, query parameters
+GET  {{baseUrl}}/pessoas/
+# ?limit=10
+# &offset=10
+# &user=mateus
+### apenas uma pessoa
+GET  {{baseUrl}}/pessoas/2/
+### criar novo recado e me permite enviar coisas
+POST  {{baseUrl}}/pessoas/
+Content-Type: application/json
+
+ {
+    "nome": "Joao",
+    "email": "joao11@email.com",
+    "password": "senha123"
+
+}
+
+### apaga uma pessoa
+DELETE  {{baseUrl}}/pessoas/7/
+
+
+
+
+
+
+
+
+
+
+
 ### AppControllerGetHello
 
 # @name AppControllerGetHello

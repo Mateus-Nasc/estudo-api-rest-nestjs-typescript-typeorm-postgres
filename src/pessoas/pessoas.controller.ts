@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { PessoasService } from './pessoas.service';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
@@ -36,7 +37,7 @@ export class PessoasController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pessoasService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.pessoasService.remove(id);
   }
 }
