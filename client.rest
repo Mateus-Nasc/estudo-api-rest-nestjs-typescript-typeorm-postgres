@@ -59,6 +59,16 @@ Content-Type: application/json
 
 }
 
+### atualizar apenas um recurso
+PATCH   {{baseUrl}}/pessoas/8/
+Content-Type: application/json
+
+{
+    "password": "senha6543",
+    "nome": "Luiz"
+
+}
+
 ### apaga uma pessoa
 DELETE  {{baseUrl}}/pessoas/7/
 
