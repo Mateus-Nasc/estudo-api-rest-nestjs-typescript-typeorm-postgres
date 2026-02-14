@@ -1,8 +1,10 @@
 import { IsEmail } from 'class-validator';
+import { Recado } from 'src/recados/entities/recado.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -27,4 +29,11 @@ export class Pessoa {
 
   @UpdateDateColumn()
   updatedAt?: Date;
+
+  //---------------------
+  @OneToMany(() => Recado, recado => recado.de) //o 2º parâmetro é uma função que recebe um recado e informa qual campo vou utilizar. O campo "de" do recado é o que indica quem é a pessoa que enviou o recado
+  recadosEnviados: Recado[];
+
+  @OneToMany(() => Recado, recado => recado.para) //o campo "para" do recado é o que indica quem é a pessoa que recebeu o recado
+  recadosRecebidos: Recado[];
 }
