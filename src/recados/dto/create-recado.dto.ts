@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsPositive,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class CreateRecadoDto {
   @IsString({
@@ -9,6 +15,11 @@ export class CreateRecadoDto {
   @MaxLength(255)
   readonly texto: string;
 
+  @IsPositive() //valida se o número é positivo, ou seja, um id válido
+  deId: number; //recebo id da pessoa que enviou o recado
+
+  @IsPositive()
+  paraId: number;
   // @IsString({
   //   message: 'O campo "de" deve ser uma string',
   // })

@@ -4,12 +4,14 @@ import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { PessoasService } from 'src/pessoas/pessoas.service';
 
 @Injectable()
 export class RecadosService {
   constructor(
     @InjectRepository(Recado)
     private readonly recadoRepository: Repository<Recado>,
+    private readonly pessoasService: PessoasService, //injeção do serviço de pessoas para poder usar os métodos dele e validar os ids de pessoa que vem no DTO
   ) {}
 
   // para erros 404
@@ -18,7 +20,19 @@ export class RecadosService {
   }
 
   async findAll() {
-    const recados = await this.recadoRepository.find();
+    const recados = await this.recadoRepository.find({
+      relations: ['de', 'para'], // para trazer os dados das pessoas relacionadas com o recado, quem enviou e recebeu o recado
+      select: {
+        de: {
+          id: true,
+          nome: true,
+        },
+        para: {
+          id: true,
+          nome: true,
+        },
+      },
+    });
     //posso manipular os recados aqui se quiser
     return recados;
   }
@@ -29,8 +43,19 @@ export class RecadosService {
     const recado = await this.recadoRepository.findOne({
       //encontra um recado
       where: {
-        //onde o id for igual ao id que eu passei. id: id, pode ser só {id,}
+        //se o id for igual ao id que eu passei. id: id, pode ser usado: id,
         id: id,
+      },
+      relations: ['de', 'para'], // para trazer os dados das pessoas relacionadas com o recado, quem enviou e recebeu o recado
+      select: {
+        de: {
+          id: true,
+          nome: true,
+        },
+        para: {
+          id: true,
+          nome: true,
+        },
       },
     });
     if (recado) return recado;
@@ -44,8 +69,16 @@ export class RecadosService {
 
   // cria um novo recado usando os dados validados do DTO
   async create(createRecadoDto: CreateRecadoDto) {
+    const { deId, paraId } = createRecadoDto;
+
+    //encontra a pessoa que esta enviando o recado e a pessoa que esta recebendo o recado usando os ids que vieram no DTO
+    const de = await this.pessoasService.findOne(deId);
+    const para = await this.pessoasService.findOne(paraId);
+
     const novoRecado = {
-      ...createRecadoDto,
+      texto: createRecadoDto.texto,
+      de: de!, // o ! é para dizer que tenho certeza que a pessoa existe, porque se não existisse o findOne já teria lançado um erro 404
+      para: para!,
       lido: false,
       data: new Date(),
     };

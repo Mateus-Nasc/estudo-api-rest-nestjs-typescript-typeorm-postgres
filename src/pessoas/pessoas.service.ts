@@ -44,8 +44,14 @@ export class PessoasService {
     return `This action returns all pessoas`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pessoa`;
+  async findOne(id: number) {
+    const pessoa = await this.pessoaRepository.findOneBy({ id });
+
+    if (!pessoa) {
+      this.throwNotFoundError(); //lança o 404 se pessoa não encontrada
+    }
+
+    return pessoa;
   }
 
   async update(id: number, updatePessoaDto: UpdatePessoaDto) {
