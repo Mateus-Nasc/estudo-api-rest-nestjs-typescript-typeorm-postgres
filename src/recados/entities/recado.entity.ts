@@ -30,11 +30,11 @@ export class Recado {
   updatedAt?: Date; //updatedAt vem junto com createdAt mas é alterado toda vez que o recado é atualizado
 
   //--------------------
-  @ManyToOne(() => Pessoa) //muitos recados podem ser enviados por uma unica pessoa
+  @ManyToOne(() => Pessoa, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }) //muitos recados podem ser enviados por uma unica pessoa
   @JoinColumn({ name: 'de' }) //cria a coluna "de" na tabela Recado, armazenando id da pessoa que enviou o recado, que é a chave estrangeira para a tabela pessoa
   de: Pessoa;
 
-  @ManyToOne(() => Pessoa) // muitos recados podem ser enviados para uma unica pessoa
+  @ManyToOne(() => Pessoa, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }) // muitos recados podem ser enviados para uma unica pessoa
   @JoinColumn({ name: 'para' }) //cria a coluna "para" na tabela Recado, guardando id da pessoa que recebeu o recado
   para: Pessoa;
 }
