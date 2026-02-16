@@ -4,28 +4,31 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Controller('recados')
+// @UsePipes(ParseIntIdPipe) //o pipe vai ser aplicado automaticamente em todos os metodos que receberem um parametro 'id' do tipo 'param', ou seja, em todos os metodos que tiverem um parametro 'id' na rota
 export class RecadosController {
   // Injeção de dependência; o Nest cria e fornece a instância do Service automaticamente
   constructor(private readonly recadosService: RecadosService) {}
   //encontra todos os recados
   @Get()
-  findAll() {
-    return this.recadosService.findAll();
+  async findAll(@Query() paginationDto: PaginationDto) {
+    const recados = await this.recadosService.findAll(paginationDto);
+    return recados;
   }
 
   //encontra um recado
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    // return `Essa rota ler e retorna o recado com ID: ${id}`;
+  @Get(':id') //para garantir que o id seja um número inteiro, se não for, o Nest lança um erro 400 automaticamente
+  findOne(@Param('id') id: number) {
+    // return `Essa rota ler e retorna o recado com ID;
     return this.recadosService.findOne(id);
   }
 
@@ -36,15 +39,12 @@ export class RecadosController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateRecadoDto: UpdateRecadoDto,
-  ) {
+  update(@Param('id') id: number, @Body() updateRecadoDto: UpdateRecadoDto) {
     return this.recadosService.update(id, updateRecadoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param('id') id: number) {
     return this.recadosService.remove(id);
   }
 }

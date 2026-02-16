@@ -4,19 +4,19 @@
 # Recados
 ### Lista todos os recados, query parameters
 GET  {{baseUrl}}/recados/
-# ?limit=10
-# &offset=10
+?limit=10
+&offset=0
 # &user=mateus
 ### apenas um recado
-GET  {{baseUrl}}/recados/11/
+GET  {{baseUrl}}/recados/14/
 ### criar novo recado e me permite enviar coisas
 POST  {{baseUrl}}/recados/
 Content-Type: application/json
 
  {
-    "texto": " Mateus, me ajuda com o NestJS",
+    "texto": " oi, estou na aula de Algoritmos",
     "deId": 10,
-    "paraId": 11
+    "paraId": 9
 
 }
 
@@ -25,14 +25,13 @@ PATCH   {{baseUrl}}/recados/5/
 Content-Type: application/json
 
 {
-    "texto": "Recado atualizado 2",
-    "de": "Joana",
-    "para": "João"
+    "texto": "Joana, me ajuda com o Docker",
+    "lido": true
 
 }
 
 ### apaga um recado
-DELETE  {{baseUrl}}/recados/1/
+DELETE  {{baseUrl}}/recados/6/
 
 
 

@@ -22,4 +22,3 @@ export class UpdateRecadoDto extends PartialType(CreateRecadoDto) {
   // readonly de?: string;
   // readonly para?: string;
 }
-//o que peciso p atualizar o recado
