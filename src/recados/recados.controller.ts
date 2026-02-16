@@ -7,11 +7,13 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { AddHeaderInterceptor } from 'src/common/interceptors/add-header.interceptor';
 
 @Controller('recados')
 // @UsePipes(ParseIntIdPipe) //o pipe vai ser aplicado automaticamente em todos os metodos que receberem um parametro 'id' do tipo 'param', ou seja, em todos os metodos que tiverem um parametro 'id' na rota
@@ -20,6 +22,7 @@ export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
   //encontra todos os recados
   @Get()
+  @UseInterceptors(AddHeaderInterceptor) //aplica o interceptor apenas nesse método
   async findAll(@Query() paginationDto: PaginationDto) {
     const recados = await this.recadosService.findAll(paginationDto);
     return recados;
