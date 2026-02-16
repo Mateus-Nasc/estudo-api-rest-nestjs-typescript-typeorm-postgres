@@ -8,7 +8,7 @@ GET  {{baseUrl}}/recados/
 &offset=0
 # &user=mateus
 ### apenas um recado
-GET  {{baseUrl}}/recados/14/
+GET  {{baseUrl}}/recados/2/
 ### criar novo recado e me permite enviar coisas
 POST  {{baseUrl}}/recados/
 Content-Type: application/json
