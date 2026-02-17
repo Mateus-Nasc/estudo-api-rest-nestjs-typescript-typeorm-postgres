@@ -7,16 +7,14 @@ import {
   Patch,
   Post,
   Query,
-  UseInterceptors,
+  // UseInterceptors,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { AddHeaderInterceptor } from 'src/common/interceptors/add-header.interceptor';
-import { TimingConnectionInterceptor } from 'src/common/interceptors/timingConnection.interceptor';
-import { ErrorHandlingInterceptor } from 'src/common/interceptors/erro-handling.interceptor';
 
+// @UseInterceptors(ChangeDataInterceptor)
 @Controller('recados')
 // @UsePipes(ParseIntIdPipe) //o pipe vai ser aplicado automaticamente em todos os metodos que receberem um parametro 'id' do tipo 'param', ou seja, em todos os metodos que tiverem um parametro 'id' na rota
 export class RecadosController {
@@ -24,7 +22,7 @@ export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
   //encontra todos os recados
   @Get()
-  @UseInterceptors(TimingConnectionInterceptor)
+  // @UseInterceptors(TimingConnectionInterceptor)
   async findAll(@Query() paginationDto: PaginationDto) {
     const recados = await this.recadosService.findAll(paginationDto);
     return recados;
@@ -32,7 +30,7 @@ export class RecadosController {
 
   //encontra um recado
   @Get(':id') //para garantir que o id seja um número inteiro, se não for, o Nest lança um erro 400 automaticamente
-  @UseInterceptors(AddHeaderInterceptor, ErrorHandlingInterceptor) //aplica o interceptor apenas nesse método
+  // @UseInterceptors(AddHeaderInterceptor, ErrorHandlingInterceptor) //aplica o interceptor apenas nesse método
   findOne(@Param('id') id: number) {
     // return `Essa rota ler e retorna o recado com ID;
     return this.recadosService.findOne(id);
