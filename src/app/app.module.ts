@@ -1,10 +1,16 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RecadosModule } from 'src/recados/recados.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { PessoasModule } from 'src/pessoas/pessoas.module';
+import { SimpleMiddleware } from 'src/common/middlewares/simple.middleware';
 
 @Module({
   imports: [
@@ -25,5 +31,18 @@ import { PessoasModule } from 'src/pessoas/pessoas.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
-//tirei de impports: ConceitosManualModule, ConceitosAutomaticoModule
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    //método obrigatório para configurar middlewares
+    consumer.apply(SimpleMiddleware).forRoutes({
+      //aplica o middleware para as rotas com o path
+      path: '',
+      method: RequestMethod.ALL,
+    });
+    // consumer.apply(SimpleMiddleware, outroMiddleware).forRoutes({
+    //   //pode-se aplicar o mesmo middleware para outra rota ou outro middleware para a mesma rota ou para rotas diferentes
+    //   path: 'pessoas/',
+    //   method: RequestMethod.ALL,
+    // });
+  }
+}

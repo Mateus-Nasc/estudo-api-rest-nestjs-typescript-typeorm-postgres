@@ -9,7 +9,7 @@ export class ChangeDataInterceptor implements NestInterceptor {
           return {
             data,
             count: data.length, // Adiciona a contagem de itens no array
-          }; // Retorna o objeto modificado ou original
+          };
         }
         return data; // Retorna o objeto modificado ou original
       }),
