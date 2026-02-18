@@ -6,16 +6,17 @@
 GET  {{baseUrl}}/recados/
 ?limit=10
 &offset=0
+Authorization: valor_do_token
 # &user=mateus
 ### apenas um recado
-GET  {{baseUrl}}/recados/12/
+GET  {{baseUrl}}/recados/3/
 ### criar novo recado e me permite enviar coisas
 POST  {{baseUrl}}/recados/
 Content-Type: application/json
 
  {
     "texto": " oi, estou na aula de Algoritmos",
-    "deId": 10,
+    "deId": 20,
     "paraId": 9
 
 }
@@ -31,7 +32,7 @@ Content-Type: application/json
 }
 
 ### apaga um recado
-DELETE  {{baseUrl}}/recados/6/
+DELETE  {{baseUrl}}/recados/17/
 
 
 

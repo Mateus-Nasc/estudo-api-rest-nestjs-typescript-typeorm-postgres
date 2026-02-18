@@ -1,4 +1,5 @@
 import {
+  // BadRequestException,
   Body,
   Controller,
   Delete,
@@ -7,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  // Req,
   // UseInterceptors,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service';
@@ -25,6 +27,9 @@ export class RecadosController {
   // @UseInterceptors(TimingConnectionInterceptor)
   async findAll(@Query() paginationDto: PaginationDto) {
     const recados = await this.recadosService.findAll(paginationDto);
+
+    // throw new BadRequestException(''); //o Nest vai capturar essa exceção e passar para o filtro, que vai retornar a resposta personalizada
+
     return recados;
   }
 
