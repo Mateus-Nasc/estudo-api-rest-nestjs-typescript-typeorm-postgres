@@ -1,5 +1,4 @@
 import {
-  // BadRequestException,
   Body,
   Controller,
   Delete,
@@ -8,13 +7,12 @@ import {
   Patch,
   Post,
   Query,
-  // Req,
-  // UseInterceptors,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { UrlParam } from 'src/common/params/urlParam.decorator';
 
 // @UseInterceptors(ChangeDataInterceptor)
 @Controller('recados')
@@ -22,13 +20,13 @@ import { PaginationDto } from 'src/common/dto/pagination.dto';
 export class RecadosController {
   // Injeção de dependência; o Nest cria e fornece a instância do Service automaticamente
   constructor(private readonly recadosService: RecadosService) {}
-  //encontra todos os recados
   @Get()
-  // @UseInterceptors(TimingConnectionInterceptor)
-  async findAll(@Query() paginationDto: PaginationDto) {
+  async findAll(
+    @Query() paginationDto: PaginationDto,
+    @UrlParam() url: string, //decorator personalizado para pegar a url da requisição, e passar para o método findAll como parâmetro 'url'
+  ) {
+    console.log(url);
     const recados = await this.recadosService.findAll(paginationDto);
-
-    // throw new BadRequestException(''); //o Nest vai capturar essa exceção e passar para o filtro, que vai retornar a resposta personalizada
 
     return recados;
   }
