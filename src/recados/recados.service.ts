@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PessoasService } from 'src/pessoas/pessoas.service';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { RecadosUtils } from './recados.utils';
 
 @Injectable()
 export class RecadosService {
@@ -13,6 +14,7 @@ export class RecadosService {
     @InjectRepository(Recado)
     private readonly recadoRepository: Repository<Recado>,
     private readonly pessoasService: PessoasService, //injeção do serviço de pessoas para poder usar os métodos dele e validar os ids de pessoa que vem no DTO
+    private readonly recadosUtils: RecadosUtils, //injeção da classe utilitária para poder usar os métodos dela, por exemplo, para validar o texto do recado ou para formatar a data do recado
   ) {}
 
   // para erros 404
@@ -21,6 +23,7 @@ export class RecadosService {
   }
 
   async findAll(paginationDto: PaginationDto) {
+    console.log(this.recadosUtils.invertirString('Mateus')); // para verificar se a classe utilitária foi injetada corretamente
     const { limit = 10, offset = 0 } = paginationDto;
 
     const recados = await this.recadoRepository.find({
